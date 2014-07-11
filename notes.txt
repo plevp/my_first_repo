@@ -1,0 +1,7 @@
+git commit -a -m "text"
+
+///on another site
+git clean
+git pull origin master
+
+//
