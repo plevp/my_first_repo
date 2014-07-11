@@ -1,6 +1,9 @@
 
 // commit 
-git add <filename>
+git add [<filename>]
+get add -u  -- only already tracked filesq
+
+
 git commit -a -m "text"
 
 // udate remote repository
@@ -13,7 +16,16 @@ git clean
 git pull origin master
 
 
+// untracked files:
+git ls-files --others --exclude-standard
+// tracked files:
+git ls-files --cached
+
+
+
+
 // create ~/.ssh
+
 
 
 
