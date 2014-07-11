@@ -1,7 +1,16 @@
+
+// commit 
+git add <filename>
 git commit -a -m "text"
+
+// udate remote repository
+git push -u origin master
 
 ///on another site
 git clean
 git pull origin master
 
-//
+// create ~/.ssh
+
+
+
