@@ -32,3 +32,14 @@ git gui
 
 
 
+/////////////////////////
+
+horse.py - horse on chess table 
+queens.py
+
+prog1.py - print my audio book library
+
+dining-philosophers.py
+philosophers2.py
+
+elevator_simulation.py  ??? see ~/Python/elevator-simulation-master.zip.
