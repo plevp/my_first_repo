@@ -21,6 +21,9 @@ git ls-files --others --exclude-standard
 // tracked files:
 git ls-files --cached
 
+// shows status all files .....
+git gui 
+
 
 
 

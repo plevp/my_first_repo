@@ -8,11 +8,21 @@ import BeautifulSoup
 import sys, os 
 import urllib, urllib2 
 
+import codecs
+import sys 
+UTF8Writer = codecs.getwriter('utf8')
+sys.stdout = UTF8Writer(sys.stdout)
+
+
 ALL_USERS = {} # for dictionnary to check all users users 
 
 months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 
+#months = ["June", "July", "August", "September", "October", "November", "December"]
+#months = ["March",  "August"]
+
 years = ["2013", "2014"]
+#years = ["2014"]
 
 baseurl = "http://domino.research.ibm.com/Comm/wwwr_ponder.nsf/Challenges/"
 
@@ -29,34 +39,44 @@ def do_one(year, month):
     #print pr
 
     bs = soup.findAll("b")
-    
+
     n = ''
     names = []
     item =  bs[0]
-    while (item):
-        if item.string == None:
-            if item.name == 'b':
-                if item.text != '*':
-                    n = n + item.text
-            elif item.name == 'br':
+    #j = 0
+    #for b in bs:
+    #    print j, ":"
+    #   print b;
+    #    j += 1;
+        
+        
+    #print len(bs)
+    for item in bs:
+        #print "text:", item.text,  type(item.nextSibling)
+        if len(item.text) > 0:
+            if item.text != '*':
+                n = n + item.text
+            nexti = item.nextSibling
+            if  nexti == None or nexti.string != None or item.name != 'b':
                 if n[0] == '*':
                     n = n[1:]
                 if n.find("&amp;") >= 0:
-                    n = n.replace("&amp;", '&')
+                    n = n.replace("&amp;", '&') 
                 names.append(n)
                 n = ''
-
-        item = item.nextSibling                
-
+            
     #print "Answers: ", len(names)
+    if year == "2013" and month == "March":
+        print names
     return names
 
 def doit():
-    #count = 0
+    #count = 
     res = []
     d = False
     for y in years:
         for m in months:
+            print y, m
             l = do_one(y, m)
             if l == None:
                 d = True
@@ -83,7 +103,7 @@ def doit():
 
     l2 = sorted(l1, key = lambda (k, v) : v , reverse = True)
 
-    for (k, dummy_v) in  l2[0:100]:
+    for (k, dummy_v) in  l2[1:2]:
         print "\n*****User: ", k
         print ALL_USERS[k]
 
