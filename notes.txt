@@ -32,7 +32,7 @@ git remote add origin https://plevp:gIThUB55@github.com/plevp/my_first_repo
 
 
 
-
+CONTENTS:
 /////////////////////////
 
 horse.py - horse on chess table 
