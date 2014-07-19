@@ -28,6 +28,10 @@ git gui
 git remote rm origin 
 git remote add origin https://plevp:gIThUB55@github.com/plevp/my_first_repo
 
+// move files (rename)
+git mv ...
+
+
 
 
 
@@ -35,12 +39,13 @@ git remote add origin https://plevp:gIThUB55@github.com/plevp/my_first_repo
 CONTENTS:
 /////////////////////////
 
+1. my_sfuff:
 horse.py - horse on chess table 
 queens.py
 
 prog1.py - print my audio book library
 
+2. other files:
 dining-philosophers.py
 philosophers2.py
-
 elevator_simulation.py  ??? see ~/Python/elevator-simulation-master.zip.
