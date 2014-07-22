@@ -31,8 +31,10 @@ git remote add origin https://plevp:gIThUB55@github.com/plevp/my_first_repo
 
 // move files (rename)
 git mv ...
-
-
+// remove file from the repository  
+// git rm <file_name>
+// git commit -m ....
+// git push 
 
 
 
