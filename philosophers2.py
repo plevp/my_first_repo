@@ -1,3 +1,6 @@
+#!/usr/bin/python
+
+
 import threading
 import random
 import time
@@ -17,9 +20,8 @@ import sys
 def mytime():
     return '%s:%s ' % (time.gmtime().tm_min,time.gmtime().tm_sec)
 
+
 class Philosopher(threading.Thread):
-
-
 
     running = True
 
@@ -72,7 +74,7 @@ class Philosopher(threading.Thread):
         self.mylog('finishes eating.')
         #sys.stdout.flush()
 
-def DiningPhilosophers():
+def DiningPhilosophers(the_time):
     forks = [threading.Lock() for n in range(5)]
     philosopherNames = ('Aristotle','Kant','Buddha','Marx', 'Russel')
 
@@ -87,11 +89,27 @@ def DiningPhilosophers():
 
     print "We are staring with seed: ", seed
 
-    for p in philosophers: p.start()
-    time.sleep(100)
-    print "After sleep(100)"
+    for p in philosophers:
+        p.daemon = True;     ## enable to work ctrl-C
+        p.start()
+
+
+    time.sleep(the_time)
+    print "After sleeping:", the_time
     Philosopher.running = False
-    for p in philosophers: p.join()
+    for p in philosophers:
+        p.join()
+
     print "Now we're finishing with seed: ", seed
 
-DiningPhilosophers()
+
+def main():
+    if len(sys.argv) == 1:
+        the_time = 50
+    else:
+        the_time = int(sys.argv[1]);
+    DiningPhilosophers(the_time)
+
+
+if __name__  == '__main__':
+    main()
