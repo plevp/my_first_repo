@@ -30,6 +30,16 @@ start_m = start_time.tm_min
 start_s = start_time.tm_sec
 
 print "Starting time", start_m, start_s
+
+
+def low_time():
+    cur_time = time.gmtime();
+    d = 0
+    if (cur_time.tm_min < start_m) or ((cur_time.tm_min == start_m) and cur_time.tm_sec < start_s):
+        d = 3600
+    t  = d + (cur_time.tm_min - start_m) * 60 + ( cur_time.tm_sec -start_s)
+    return (cur_time.tm_min, cur_time.tm_sec , t)
+    
 def mytime():
 
     cur_time = time.gmtime();
@@ -38,20 +48,23 @@ def mytime():
         d = 3600
     t  = d + (cur_time.tm_min - start_m) * 60 + ( cur_time.tm_sec -start_s)
     
-    return '%2s:%2s[%3s] ' % (time.gmtime().tm_min,time.gmtime().tm_sec, t)
+    (m,s,t) = low_time()
+    #return '%2s:%2s[%3s] ' % (time.gmtime().tm_min,time.gmtime().tm_sec, t)
+    return '%2s:%2s[%3s] ' % (m, s,  t)
 
 
 class Philosopher(threading.Thread):
 
     running = True
 
-    def __init__(self, xname, forkOnLeft, forkOnRight, eating_time = None, thinking_time = None):
+    def __init__(self, xname, forkOnLeft, forkOnRight, thinking_time = None,  eating_time = None, delta = None):
         threading.Thread.__init__(self)
         self.name = xname
         self.forkOnLeft = forkOnLeft
         self.forkOnRight = forkOnRight
         self._thinking_time = thinking_time;
-        self._eating_time = eating_time; 
+        self._eating_time = eating_time;
+        self._delta = delta
 
     def mylog(self, s):
         sys.stdout.write("%s %s %s\n" % (mytime(), self.name, s))
@@ -59,6 +72,9 @@ class Philosopher(threading.Thread):
 
 
     def run(self):
+        if self._delta != None:
+            time.sleep(self._delta)
+            
         while(self.running):
             #  Philosopher is thinking (but really is sleeping).
             # sys.stdout.write( "%s %s leaves to think\n" % (self.name)
@@ -68,6 +84,8 @@ class Philosopher(threading.Thread):
                 time.sleep( random.uniform(THINKING_MIN, THINKING_MAX))
             else:
                 time.sleep(self._thinking_time)
+            (_,_, t) = low_time()
+            self._hungry_time = t
             self.mylog('is hungry.')
             #sys.stdout.flush()
             self.dine()
@@ -77,6 +95,7 @@ class Philosopher(threading.Thread):
     def dine(self):
         fork1, fork2 = self.forkOnLeft, self.forkOnRight
 
+        k = 0;
         while True:
             # self.mylog('in dine')            
             fork1.acquire(True)
@@ -84,7 +103,8 @@ class Philosopher(threading.Thread):
             if locked:
                 break # go to eat
             fork1.release()
-            self.mylog('swaps forks.')
+            k = k + 1
+            self.mylog('swaps forks [' + str(k) + ',' + str(self._hungry_time) + ']')
             #sys.stdout.flush()
             fork1, fork2 = fork2, fork1
         else:
@@ -99,7 +119,10 @@ class Philosopher(threading.Thread):
         self.mylog ('starts eating.' + "[" + str(Philosopher.eating) + "]")
         
         #sys.stdout.flush()
-        time.sleep(random.uniform(EATING_MIN, EATING_MAX))
+        if self._eating_time == None:
+            time.sleep(random.uniform(EATING_MIN, EATING_MAX))
+        else:
+            time.sleep(self._eating_time)
         Philosopher.eating -= 1;        
         self.mylog('finishes eating.')
         #sys.stdout.flush()
@@ -109,14 +132,15 @@ def DiningPhilosophers(the_time):
     forks = [threading.Lock() for _ in range(5)]
     philosopherNames = ('Aristotle','Kant','Buddha','Marx', 'Russel')
 
-    # philosophers= [Philosopher(philosopherNames[i], forks[i%5], forks[(i+1)%5]) for i in range(5)]
-    philosophers = [None] * 5
+    philosophers= [Philosopher(philosopherNames[i], forks[i%5], forks[(i+1)%5]) for i in range(5)]
     
-    philosophers[0] = Philosopher(philosopherNames[0], forks[0], forks[1])
-    philosophers[1] = Philosopher(philosopherNames[1], forks[1], forks[2])
-    philosophers[2] = Philosopher(philosopherNames[2], forks[2], forks[3])
-    philosophers[3] = Philosopher(philosopherNames[3], forks[3], forks[4])
-    philosophers[4] = Philosopher(philosopherNames[4], forks[4], forks[0])
+#     this is a problem of starvation of Kant
+#     philosophers = [None] * 5
+#     philosophers[0] = Philosopher(philosopherNames[0], forks[0], forks[1], 3,5,3)
+#     philosophers[1] = Philosopher(philosopherNames[1], forks[1], forks[2], 7, 2, 0)
+#     philosophers[2] = Philosopher(philosopherNames[2], forks[2], forks[3], 3,5,7)
+#     philosophers[3] = Philosopher(philosopherNames[3], forks[3], forks[4], 200,2)
+#     philosophers[4] = Philosopher(philosopherNames[4], forks[4], forks[0], 200,2)
 
 #    random.seed(507129)
     seed = time.time()
