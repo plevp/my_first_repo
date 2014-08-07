@@ -42,11 +42,11 @@ def low_time():
     
 def mytime():
 
-    cur_time = time.gmtime();
-    d = 0
-    if (cur_time.tm_min < start_m) or ((cur_time.tm_min == start_m) and cur_time.tm_sec < start_s):
-        d = 3600
-    t  = d + (cur_time.tm_min - start_m) * 60 + ( cur_time.tm_sec -start_s)
+#     cur_time = time.gmtime();
+#     d = 0
+#     if (cur_time.tm_min < start_m) or ((cur_time.tm_min == start_m) and cur_time.tm_sec < start_s):
+#         d = 3600
+#     t  = d + (cur_time.tm_min - start_m) * 60 + ( cur_time.tm_sec -start_s)
     
     (m,s,t) = low_time()
     #return '%2s:%2s[%3s] ' % (time.gmtime().tm_min,time.gmtime().tm_sec, t)
@@ -72,6 +72,7 @@ class Philosopher(threading.Thread):
 
 
     def run(self):
+        
         if self._delta != None:
             time.sleep(self._delta)
             
