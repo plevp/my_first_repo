@@ -6,6 +6,20 @@ import random
 import time
 import datetime
 import sys
+import signal
+
+ctrlc = False
+def signal_handler(signal, frame):
+    print('You pressed Ctrl+C!')
+    global ctrlc
+    ctrlc = True
+#    sleep()
+    
+#    sys.exit(0)
+
+signal.signal(signal.SIGINT, signal_handler)
+print('Press Ctrl+C')
+# signal.pause()
 
 
 # Dining philosophers, 5 Phillies with 5 forks. Must have two forks to eat.
@@ -128,6 +142,7 @@ class Philosopher(threading.Thread):
         self.mylog('finishes eating.')
         #sys.stdout.flush()
 
+
 def DiningPhilosophers(the_time):
     Philosopher.eating = 0;
     forks = [threading.Lock() for _ in range(5)]
@@ -152,12 +167,18 @@ def DiningPhilosophers(the_time):
     print "We are staring with seed: ", seed
 
     for p in philosophers:
-        p.daemon = True;     ## enable to work ctrl-C
+        # p.daemon = True;     ## enable to work ctrl-C
         p.start()
 
 
+    print "Threadding info", threading.active_count(), threading.current_thread()
     time.sleep(the_time)
-    print "After sleeping:", the_time
+    
+    global ctrlc
+    if ctrlc:
+        print "Cancelling"
+    else:
+        print "After sleeping:", the_time
     Philosopher.running = False
     for p in philosophers:
         p.join()
@@ -170,6 +191,7 @@ def main():
         the_time = 50
     else:
         the_time = int(sys.argv[1]);
+        
     DiningPhilosophers(the_time)
 
 

@@ -67,7 +67,7 @@ def print_catalog(dirname):
 
 
 def main():
-#    print "Hello"
+    #    print "Hello"
 
     argc = len(argv)
     if (argc < 3):
@@ -84,9 +84,9 @@ def main():
 
     print "\n\n\n *****************"
 
-#   my_walk(dirname)s
+    #   my_walk(dirname)s
 
-#    remove_underscore(dirname)
+    #    remove_underscore(dirname)
 
     print_catalog(dirname)
 
