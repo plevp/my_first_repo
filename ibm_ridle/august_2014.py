@@ -30,7 +30,7 @@ def doit():
       calc2(i)
 
   #print avr
-#  print point
+# print point
 
   print "The result is", avr[100]
 if __name__ == '__main__':
