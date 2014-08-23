@@ -19,19 +19,19 @@ def calc2(k):
 
     # print tmp[1:k+1]
     avr[k] = min(tmp[2:k+1])
-    point[k] = tmp[2:k+1].index(avr[k]) +2 
+    point[k] = tmp[2:k+1].index(avr[k]) +2
 
 def doit():
-  print "start"
 
   avr[0] = 0
   avr[1] = 0
 
-  for i in range(2,151):
+  for i in range(2,101):
       calc2(i)
 
-  print avr
-  print point
+  #print avr
+#  print point
 
+  print "The result is", avr[100]
 if __name__ == '__main__':
     doit()
