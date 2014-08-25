@@ -7,7 +7,7 @@ get add -u  -- only already tracked filesq
 
 git commit -a -m "text"
 
-// udate remote repository
+// update remote repository
 git push -u origin master
 
 ///on another site
