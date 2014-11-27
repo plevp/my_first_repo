@@ -12,6 +12,7 @@ ballrect = ball.get_rect()
 
 while 1:
     for event in pygame.event.get():
+        print event.type
         if event.type == pygame.QUIT: sys.exit()
 
     ballrect = ballrect.move(speed)
