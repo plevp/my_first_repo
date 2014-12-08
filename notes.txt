@@ -8,7 +8,10 @@ get add -u  -- only already tracked filesq
 git commit -a -m "text"
 
 // update remote repository
-git push -u origin master
+git push -u origin master  
+   or just
+git push
+
 
 ///on another site
 git clone  https://github/plevp/my_first_repo
