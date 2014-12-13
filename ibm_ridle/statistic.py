@@ -91,7 +91,7 @@ def doit():
             for u in l:
                 if ALL_USERS.get(u) == None:
                     ALL_USERS[u] = []
-                ALL_USERS[u].append((m, y, l.index(u), llen))
+                ALL_USERS[u].append((m, y, l.index(u)+1, llen))
         if d:
             break
     #print count

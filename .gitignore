@@ -1,6 +1,7 @@
 # .gitignore
 *~
-*.o
+*\.o
 \#*
 .\#*
+.*\.swp
 a.out
