@@ -31,7 +31,7 @@ def main():
     plt.title("Simple plot")
 
     #show plot
-    #plt.show()
+    plt.show()
 
 if __name__ == "__main__":
     main()
