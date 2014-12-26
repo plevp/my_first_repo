@@ -14,7 +14,7 @@
 # Left/Right - Move stone
 #         Up - Rotate Stone clockwise
 #         q  - Quit game
-#          P - Pause game
+#         P - Pause game
 #     Space - Instant drop
 #
 # Have fun!
@@ -119,16 +119,19 @@ def new_board():
 class TetrisApp(object):
 	def __init__(self):
 		pygame.init()
-		pygame.key.set_repeat(250,25)
+		pygame.key.set_repeat(250,25) 
+		#print "key repeat:", pygame.key.get_repeat();
 		self.width = cell_size*(cols+6)
 		self.height = cell_size*rows
 		self.rlim = cell_size*cols
 		self.bground_grid = [[ 8 if x%2==y%2 else 0 for x in xrange(cols)] for y in xrange(rows)]
+
+		# print self.bground_grid
 		
-		self.default_font =  pygame.font.Font(
-			pygame.font.get_default_font(), 12)
+		self.default_font =  pygame.font.Font(pygame.font.get_default_font(), 12)
 		
 		self.screen = pygame.display.set_mode((self.width, self.height))
+		
 		pygame.event.set_blocked(pygame.MOUSEMOTION) # We do not need
 		                                             # mouse movement
 		                                             # events, so we
@@ -256,9 +259,13 @@ class TetrisApp(object):
 	def rotate_stone(self):
 		if not self.gameover and not self.paused:
 			new_stone = rotate_clockwise(self.stone)
-			if not check_collision(self.board,
-			                       new_stone,
-			                       (self.stone_x, self.stone_y)):
+			# LP
+			new_x = self.stone_x 
+			#  LP if not check_collision(self.board, new_stone, (self.stone_x, self.stone_y)):
+			## if len(new_stone) == 1 and new_x >= (cols-3):
+			## 	new_x = cols-4
+			if not check_collision(self.board, new_stone, (new_x, self.stone_y)):				
+				self.stone_x = new_x   ## LP
 				self.stone = new_stone
 	
 	def toggle_pause(self):
@@ -271,13 +278,14 @@ class TetrisApp(object):
 	
 	def run(self):
 		key_actions = {
-			'q':	self.quit,
+			'q':	        self.quit,
+			'ESCAPE':	self.quit,
 			'LEFT':		lambda:self.move(-1),
 			'RIGHT':	lambda:self.move(+1),
 			'DOWN':		lambda:self.drop(True),
 			'UP':		self.rotate_stone,
 			'p':		self.toggle_pause,
-                        's':	self.start_game,
+                        's':	        self.start_game,
                         'SPACE':	self.insta_drop
 		}
 		
@@ -288,8 +296,7 @@ class TetrisApp(object):
 		while 1:
 			self.screen.fill((0,0,0))
 			if self.gameover:
-				self.center_msg("""Game Over!\nYour score: %d
-Press space to continue""" % self.score)
+				self.center_msg("""Game Over!\nYour score: %d \nPress space to continue""" % self.score)
 			else:
 				if self.paused:
 					self.center_msg("Paused")
