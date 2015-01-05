@@ -41,7 +41,8 @@
  
 from random import randrange as rand
 import pygame, sys
- 
+
+
 # The configuration
 cell_size =	18
 cols =		10
@@ -119,6 +120,7 @@ def new_board():
 class TetrisApp(object):
 	def __init__(self):
 		pygame.init()
+		pygame.mixer.quit()
 		pygame.key.set_repeat(250,25) 
 		#print "key repeat:", pygame.key.get_repeat();
 		self.width = cell_size*(cols+6)
@@ -296,21 +298,15 @@ class TetrisApp(object):
 		while 1:
 			self.screen.fill((0,0,0))
 			if self.gameover:
-				self.center_msg("""Game Over!\nYour score: %d \nPress space to continue""" % self.score)
+				self.center_msg("""Game Over!\nYour score: %d \nPress 's' to continue""" % self.score)
 			else:
 				if self.paused:
 					self.center_msg("Paused")
 				else:
-					pygame.draw.line(self.screen,
-						(255,255,255),
-						(self.rlim+1, 0),
-						(self.rlim+1, self.height-1))
-					self.disp_msg("Next:", (
-						self.rlim+cell_size,
-						2))
-					self.disp_msg("Score: %d\n\nLevel: %d\
-\nLines: %d" % (self.score, self.level, self.lines),
-						(self.rlim+cell_size, cell_size*5))
+					pygame.draw.line(self.screen, (255,255,255), (self.rlim+1, 0), (self.rlim+1, self.height-1))
+					self.disp_msg("Next:", (self.rlim+cell_size, 2))
+					self.disp_msg("Score: %d\n\nLevel: %d\nLines: %d" % (self.score, self.level, self.lines),
+						      (self.rlim+cell_size, cell_size*5))
 					self.draw_matrix(self.bground_grid, (0,0))
 					self.draw_matrix(self.board, (0,0))
 					self.draw_matrix(self.stone,
@@ -326,8 +322,7 @@ class TetrisApp(object):
 					self.quit()
 				elif event.type == pygame.KEYDOWN:
 					for key in key_actions:
-						if event.key == eval("pygame.K_"
-						+key):
+						if event.key == eval("pygame.K_" +key):
 							key_actions[key]()
 					
 			dont_burn_my_cpu.tick(maxfps)

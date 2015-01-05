@@ -180,6 +180,7 @@ def main(PPL = 5500, NO_OF_LIFTS = 4, FPS = 30, screen = None):
         red = ( 255, 0, 0)
         if not screen:
             pg.init()                                       # initialise pygame
+            pg.mixer.quit()  # LP
             #FPS = 100                                    # frames per second in our simulation
             size=[700,500]                                  # size of screen
             if not screen: screen=pg.display.set_mode(size)
@@ -260,6 +261,7 @@ def main(PPL = 5500, NO_OF_LIFTS = 4, FPS = 30, screen = None):
     mor_d_lift = np.array([Lift() for i in range(PPL)], dtype=object)
     mor_data1 = mor_data[:,0]
 
+    print len(mor_ppl), type(mor_ppl)
     for ppl in mor_ppl:
         if SIMULATE:
             for event in pg.event.get(): # User did something

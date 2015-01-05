@@ -1,5 +1,8 @@
 #! /usr/bin/env python
- 
+
+# from :
+# http://lorenzod8n.wordpress.com/category/graphics-programming/
+
 import pygame
 
 screen = pygame.display.set_mode((640, 400))

@@ -16,6 +16,9 @@ ballrect = ball.get_rect()
 print ball
 print ballrect
 
+
+print pygame.sound
+
 while 1:
     for event in pygame.event.get():
         #print event.type
@@ -28,7 +31,7 @@ while 1:
         speed[1] = -speed[1]
 
     screen.fill(black)
-    screen.blit(ball, ballrect)
+    screen.blit(ball, ballrect)   # or     screen.blit(ball, (ballrect[0], ballrect[1]))
     pygame.display.flip()
 
 
