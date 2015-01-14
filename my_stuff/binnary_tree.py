@@ -27,6 +27,9 @@ class Node:
     def Min(self):
         return self.value if self.left == None else self.left.Min()
 
+    def Next(self):
+        
+
 def CreateRandomTree(Nodes):
     pass
 
