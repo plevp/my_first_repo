@@ -14,7 +14,7 @@ git push
 
 
 ///on another site
-git clone  https://github/plevp/my_first_repo
+git clone  https://github.com/plevp/my_first_repo
 
 git clean
 git pull origin master
