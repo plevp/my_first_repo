@@ -23,5 +23,25 @@ def random_point(c=1):
     y = random.random() * c
     return (x,y)
 
+def read_ints(fn):
+    f = open(fn);
+    inp = []
+    for item in f.readlines():
+        item = item.strip()
+        if item != "":            
+            inp.append(int(item))
+    f.close()
+    return inp;
 
-    
+def read_ints2(fn):
+    f = open(fn);
+    inp = []
+    item = f.readline()
+    while item:
+        item = item.strip();
+        if item != "":
+            inp.append(int(item))
+        item = f.readline()
+        
+    f.close()
+    return inp
