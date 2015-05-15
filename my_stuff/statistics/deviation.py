@@ -13,6 +13,9 @@ def diviation(l):
     return (v, sqrt(v))
 
 #print diviation([1,2,3,4,5])
-print diviation([4.9, 4.8, 6.8])
+#print diviation([4.9, 4.8, 6.8])
+
 print diviation([1.46, 4.16, 0.27, 9.95, 0.67, -0.14])
+
+
 
