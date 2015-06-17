@@ -1,0 +1,7 @@
+
+
+current = {}
+next = {}
+
+
+def get

@@ -1,0 +1,3 @@
+<> dot -Tpdf d1.dot -o d1.pdf
+
+<> python dot.py | dot -Tpdf -o x.pdf 
