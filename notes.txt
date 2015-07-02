@@ -3,7 +3,7 @@
 // commit 
 git add [<filename>]
 get add -u  -- only already tracked filesq
-
+get add .   // staged all new files
 
 git commit -a -m "text"
 
@@ -38,6 +38,12 @@ git mv ...
 // git rm <file_name>
 // git commit -m ....
 // git push 
+
+
+//usefull commands
+git diff [--name-only]   // changed files
+git status --short	   // show modifyedand new files 
+
 
 
 
