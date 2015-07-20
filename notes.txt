@@ -70,3 +70,13 @@ philosophers2.py
 elevator_simulation.py  ??? see ~/Python/elevator-simulation-master.zip.
 
 
+INFO
+/////
+
+wget -non-interactive network retriever.
+   i use it to bring file from the internet, e.g.
+	wget http://commondatastorage.googleapis.com/codeskulptor-assets/cards.jfitz.png
+
+gpicview - image viewer 
+   display the same 
+
