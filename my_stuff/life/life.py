@@ -87,3 +87,96 @@ def doit(fn):
     read_data(fn)
     display(current)
 
+
+state = {}
+
+## initial
+state[(1,0)] = 1
+state[(0,0)] = 1
+state[(-1,0)] = 1
+
+state[(10,10)] = 1
+state[(10,11)] = 1
+state[(11,10)] = 1
+state[(11,11)] = 1
+
+state[(20,20)] = 1
+state[(20,21)] = 1
+state[(21,20)] = 1
+state[(21,21)] = 1
+state[(22,22)] = 1
+state[(23,23)] = 1
+state[(22,23)] = 1
+state[(23,22)] = 1
+
+
+state[(-43,-43)] = 1
+state[(-43,-44)] = 1
+state[(-43,-45)] = 1
+state[(-44,-43)] = 1
+state[(-45,-44)] = 1
+
+
+
+
+
+
+state[(20,20)] = 1
+
+def neib(i,j):
+    n=[]
+    for k1 in range(-1,2):
+        for k2 in range(-1,2):
+            n.append((i+k1, j + k2))
+    return n
+    
+    
+def gen_life():
+    global state
+
+    r = {}
+    for (i,j), _ in state.items():
+        r[(i+60, j+60)] = 1
+    yield r;
+
+    
+    while True:
+        #print "State", state
+        d1 = {};
+        for (i,j), _ in state.items():
+            
+            ns = neib(i,j);
+            
+            for n in ns:
+                if not n in d1:
+                    nss = neib(n[0], n[1])
+                    c = 0
+                    for nn in nss:
+                        if nn in state and nn != n:
+                            c += 1
+                    d1[n] = 2                    
+                    if n in state:
+                        if ( c == 2 or c ==3):
+                            d1[n] = 1
+                    else:
+                        if c==3:
+                            d1[n] = 1
+        state.clear()
+        for k, v in d1.items():
+            if v == 1:
+                state[k] =1
+                
+        r = {}
+        for (i,j), _ in state.items():
+            r[(i+60, j+60)] = 1
+            
+        yield r;
+            
+
+
+g = gen_life()
+
+print g
+
+for k in range(4):
+    g1 = g.next()
