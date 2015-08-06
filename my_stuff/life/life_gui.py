@@ -1,6 +1,5 @@
 import pygame
 
-
 from life import *
 
 def draw_life(w, h, get_next):
@@ -20,6 +19,7 @@ def draw_life(w, h, get_next):
     my_clock = pygame.time.Clock()
 
     gen = get_next()
+    
     while True:
         my_clock.tick(5)
         # Look for an event from keyboard, mouse, etc.
@@ -29,7 +29,12 @@ def draw_life(w, h, get_next):
             break;
         
         surface.fill(w_clr);
-        d = gen.next();
+        d_raw = gen.next();
+        print "State", state_size(d_raw);
+        d = {}
+        for (i,j), _ in d_raw.items():
+            d[(i+(w//2), j+(h//2))] = 1
+            
         for (i,j),_ in d.items():
             if i < w and j < h:
                 surface.fill(b_clr, (i * cell_size, j * cell_size, cell_size, cell_size))

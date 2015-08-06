@@ -82,11 +82,31 @@ def read_data(fn):
     #keys = sorted(current.keys(), key = lambda x : (x[1], x[0]))
 
 
+
 def doit(fn):
     current.clear()
     read_data(fn)
     display(current)
 
+
+
+    
+
+
+## ********************** ## 
+
+def state_size(state):
+    ks = state.keys()
+    ks.sort(key = lambda x: x[0])
+    
+    max_x = ks[-1][0]
+    min_x = ks[0][0]
+    ks.sort(key = lambda x: x[1])
+    
+    max_y = ks[-1][1]
+    min_y = ks[0][1]
+
+    return (min_x, max_x, min_y, max_y)
 
 state = {}
 
@@ -116,13 +136,9 @@ state[(-43,-45)] = 1
 state[(-44,-43)] = 1
 state[(-45,-44)] = 1
 
+print "State init", state_size(state)
 
-
-
-
-
-state[(20,20)] = 1
-
+# get all neigbours
 def neib(i,j):
     n=[]
     for k1 in range(-1,2):
@@ -130,16 +146,11 @@ def neib(i,j):
             n.append((i+k1, j + k2))
     return n
     
-    
+# generator next state of life    
 def gen_life():
     global state
 
-    r = {}
-    for (i,j), _ in state.items():
-        r[(i+60, j+60)] = 1
-    yield r;
-
-    
+    yield state
     while True:
         #print "State", state
         d1 = {};
@@ -165,12 +176,8 @@ def gen_life():
         for k, v in d1.items():
             if v == 1:
                 state[k] =1
-                
-        r = {}
-        for (i,j), _ in state.items():
-            r[(i+60, j+60)] = 1
-            
-        yield r;
+
+        yield state;
             
 
 
