@@ -82,61 +82,67 @@ def read_data(fn):
     #keys = sorted(current.keys(), key = lambda x : (x[1], x[0]))
 
 
-
+"""
 def doit(fn):
     current.clear()
     read_data(fn)
     display(current)
-
+"""
 
 
     
 
 
 ## ********************** ## 
+def get_frame(pairs):
+    max_x = max(pairs, key = lambda p: p[0])[0]
+    max_y = max(pairs, key = lambda p: p[1])[1]
+    min_x = min(pairs, key = lambda p: p[0])[0]
+    min_y = min(pairs, key = lambda p: p[1])[1]
+
+    return (min_x, min_y, max_x, max_y);
 
 def state_size(state):
-    ks = state.keys()
-    ks.sort(key = lambda x: x[0])
-    
-    max_x = ks[-1][0]
-    min_x = ks[0][0]
-    ks.sort(key = lambda x: x[1])
-    
-    max_y = ks[-1][1]
-    min_y = ks[0][1]
 
-    return (min_x, max_x, min_y, max_y)
+    (min_x, min_y, max_x, max_y) = get_frame(state.keys());
+
+    return (len(state), min_x, max_x, min_y, max_y)
 
 state = {}
 
 ## initial
-state[(1,0)] = 1
-state[(0,0)] = 1
-state[(-1,0)] = 1
+def init0():
+    state[(1,0)] = 1
+    state[(0,0)] = 1
+    state[(-1,0)] = 1
+    
+    state[(10,10)] = 1
+    state[(10,11)] = 1
+    state[(11,10)] = 1
+    state[(11,11)] = 1
 
-state[(10,10)] = 1
-state[(10,11)] = 1
-state[(11,10)] = 1
-state[(11,11)] = 1
+    state[(20,20)] = 1
+    state[(20,21)] = 1
+    state[(21,20)] = 1
+    state[(21,21)] = 1
+    state[(22,22)] = 1
+    state[(23,23)] = 1
+    state[(22,23)] = 1
+    state[(23,22)] = 1
 
-state[(20,20)] = 1
-state[(20,21)] = 1
-state[(21,20)] = 1
-state[(21,21)] = 1
-state[(22,22)] = 1
-state[(23,23)] = 1
-state[(22,23)] = 1
-state[(23,22)] = 1
+    state[(-43,-43)] = 1
+    state[(-43,-44)] = 1
+    state[(-43,-45)] = 1
+    state[(-44,-43)] = 1
+    state[(-45,-44)] = 1
 
+    state[(50,10)] = 1
+    state[(50,11)] = 1
+    state[(51,10)] = 1
+    state[(51,11)] = 1
 
-state[(-43,-43)] = 1
-state[(-43,-44)] = 1
-state[(-43,-45)] = 1
-state[(-44,-43)] = 1
-state[(-45,-44)] = 1
+    print "State init", state_size(state)
 
-print "State init", state_size(state)
 
 # get all neigbours
 def neib(i,j):
@@ -145,7 +151,7 @@ def neib(i,j):
         for k2 in range(-1,2):
             n.append((i+k1, j + k2))
     return n
-    
+
 # generator next state of life    
 def gen_life():
     global state
@@ -179,11 +185,61 @@ def gen_life():
 
         yield state;
             
+def read_state_(name):
+  """Load a file. We support pretty lax syntax; ! or # start a comment, . on a
+  line is a dead cell, anything else is live. Line lengths do not need to
+  match. This can load basic .cells and .lif files, although nothing complicated
+  is supported.
+  """
+  with open(name) as f:
+    result = []
 
+    row = 0
+    for line in f:
+      if not line or line[0] == '!' or line[0] == '#':
+	continue
 
+      col = 0
+      for c in line:
+	if c == '\r' or c == '\n':
+          break
+	if c != '.':
+          result.append((row,col))
+        col += 1
+      row -= 1
+    return result
+
+def read_state(file_name= ""):
+    if file_name =="":
+        init0();
+        return
+
+    pairs = read_state_(file_name);
+    frame = get_frame(pairs);
+
+    # update state to be in the centre of the window
+    c_x = (frame[2] - frame[0]) // 2
+    c_y = (frame[3] - frame[1]) // 2
+
+    l = map(lambda p: (p[0]+ c_x, p[1] - c_y), pairs)
+    for p in l:
+        state[p] = 1;
+
+    print "frame: ", frame
+    print "pairs:", pairs
+    print "l", l ;
+    print "Initial state:", state
+    
+                       
+# print ParseFile("./examples/t1.cells");
+
+"""
 g = gen_life()
 
 print g
 
 for k in range(4):
     g1 = g.next()
+
+"""
+
