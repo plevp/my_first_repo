@@ -11,9 +11,9 @@ from life import *
 """
 def ProcessEvent(self, event):
     # Handle a single 'event' - like a key press, mouse click, etc.
-    if event.type == pygame.QUIT:
+    if event.type == QUIT:
         sys.exit()
-    elif event.type == pygame.KEYDOWN:
+    elif event.type == KEYDOWN:
         if (event.key == K_DOWN or event.key == K_UP or
             event.key == K_LEFT or event.key == K_RIGHT):
             # Pan.
@@ -51,6 +51,8 @@ delta_y = 0
 
 move_step = 5
 
+pause_game = False
+
 def move_panel(direction):
     global delta_y, delta_x
     
@@ -66,10 +68,10 @@ def move_panel(direction):
 
 def handle_event(event):
     result = False;
-    global current_speed, tick
-    if event.type == pygame.QUIT:
+    global current_speed, tick, pause_game
+    if event.type == QUIT:
         result = True; # stop the game
-    elif event.type == pygame.KEYDOWN:
+    elif event.type == KEYDOWN:
         if event.key == K_MINUS  or event.key == K_KP_MINUS:  # K_KP_PLUS/MINUS on keypad
             # Slow down
             current_speed = current_speed +1;
@@ -82,6 +84,10 @@ def handle_event(event):
               event.key == K_LEFT or event.key == K_RIGHT):
             # Move
             move_panel(event.key);
+        elif event.key == K_p:
+            pause_game = not pause_game
+        elif event.key == K_q:
+            result = True
         else:
             pass      
     else:
@@ -115,20 +121,23 @@ def draw_life(w, h, cell_size, get_next):
             break;
 
         ## speed control
-        if tick == current_speed:
-            tick = 0 
-            d_raw = gen.next()
-            if len(d_raw) == 0: # everything is dead 
-                print "Dead!!!!!"
-                break;
-        else:
-            tick += 1; # just draw the same state
+        if not pause_game:
+            if tick == current_speed:
+                tick = 0 
+                d_raw = gen.next()
+                if len(d_raw) == 0: # everything is dead 
+                    print "Dead!!!!!"
+                    break;
+            else:
+                tick += 1; # just draw the same state
             
         my_clock.tick(30)
         surface.fill(w_clr); # fill with white all space
 
-        st_info = state_size(d_raw)
-        text = myfont.render(str(st_info), 10, (255, 0, 0));
+        st_info = state_size(d_raw);
+        #  + " ("+str(delta_x)+ ","+str(delta_y)+")"
+        str_info = "%s (%d,%d)" % (st_info, delta_x, delta_y)
+        text = myfont.render(str_info, 10, (255, 0, 0));
         # print "Text rect:", text.get_rect()
         surface.blit(text, ( 10, h * cell_size+5)) # show text in the buttom of the window
         surface.fill(b_clr, (0, h * cell_size, w * cell_size, 2)) # black line at the buttom for text 
