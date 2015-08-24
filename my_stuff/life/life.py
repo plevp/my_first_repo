@@ -204,9 +204,10 @@ def read_state_(name):
 	if c == '\r' or c == '\n':
           break
 	if c != '.':
-          result.append((row,col))
+            result.append((col, row))
         col += 1
       row -= 1
+
     return result
 
 def read_state(file_name= ""):
@@ -221,15 +222,16 @@ def read_state(file_name= ""):
     c_x = (frame[2] - frame[0]) // 2
     c_y = (frame[3] - frame[1]) // 2
 
-    l = map(lambda p: (p[0]+ c_x, p[1] - c_y), pairs)
+    l = map(lambda p: (p[0]- c_x, p[1] + c_y), pairs)
     for p in l:
         state[p] = 1;
 
+    """
     print "frame: ", frame
     print "pairs:", pairs
     print "l", l ;
     print "Initial state:", state
-    
+    """
                        
 # print ParseFile("./examples/t1.cells");
 
