@@ -105,12 +105,11 @@ def draw_life(w, h, cell_size, get_next):
                 next_state = False
                 d_raw = get_next_state(gen);
                 
-        my_clock.tick(30)
+        my_clock.tick(30) # pygame ticks
         surface.fill(w_clr); # fill with white all space
 
-        str_info = "State: %s Center: (%d,%d)" % (state_size(d_raw), delta_x, delta_y)
-        text = myfont.render(str_info, 10, (255, 0, 0));
-        # print "Text rect:", text.get_rect()
+        str_info = "State: %s Center: (%d,%d)" % (state_size(d_raw), delta_x, delta_y) 
+        text = myfont.render(str_info, 10, (255, 0, 0));  # text in the buttom of the window 
         surface.blit(text, ( 10, h * cell_size+5)) # show text in the buttom of the window
         surface.fill(b_clr, (0, h * cell_size, w * cell_size, 2)) # black line at the buttom for text 
         
@@ -126,6 +125,7 @@ def draw_life(w, h, cell_size, get_next):
                 surface.fill(b_clr, (i * cell_size, j * cell_size, cell_size, cell_size))
         
         pygame.display.flip()
+        
     pygame.quit()
 
 

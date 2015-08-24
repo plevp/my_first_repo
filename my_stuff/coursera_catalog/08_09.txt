@@ -38,7 +38,7 @@
  (8, 10, u'Hardware Security'),
  (8, 10, u'Usable Security'),
  (8, 10, u'Generating the Wealth of Nations'),
- (8, 10, u'Cryptography'),
+***  (8, 10, u'Cryptography'),
  (8, 14, u'More Introduction to Financial Accounting'),
  (8, 14, u'Introduction to Forensic Science'),
  (8, 17, u'Journalism Skills for Engaged Citizens'),
@@ -66,6 +66,7 @@
  (8, 31, u'Powerful Tools for Teaching and Learning: Digital Storytelling'),
  (8, 31, u'Curanderismo Part 2: Traditional Healing of the Spirit/Energy'),
  (8, 31, u'Climate Change'),
+
 
  (9, 1, u'The Brain and Space'),
  (9, 1, u'Bitcoin and Cryptocurrency Technologies'),
