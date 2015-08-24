@@ -59,6 +59,14 @@ def handle_event(event):
         pass
     return result
 
+def get_next_state(gen):
+    new_state = gen.next();
+    if len(new_state) == 0:
+        print "Dead!!!!"
+        sys.exit()
+    return new_state
+    
+
 def draw_life(w, h, cell_size, get_next):
     global tick, current_speed, next_state
 
@@ -89,19 +97,14 @@ def draw_life(w, h, cell_size, get_next):
         if not pause_game:
             if tick == current_speed:
                 tick = 0 
-                d_raw = gen.next()
-                if len(d_raw) == 0: # everything is dead 
-                    print "Dead!!!!!"
-                    break;
+                d_raw = get_next_state(gen);
             else:
                 tick += 1; # just draw the same state
         else:
             if next_state:
                 next_state = False
-                d_raw = gen.next()
-                if len(d_raw) == 0: # everything is dead 
-                    print "Dead!!!!!"
-                    break;
+                d_raw = get_next_state(gen);
+                
         my_clock.tick(30)
         surface.fill(w_clr); # fill with white all space
 
