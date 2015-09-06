@@ -1,0 +1,3 @@
+g++ -g -c -o ModificationItem.o ModificationItem.cpp
+g++ -g -c -o TransformationItem.o TransformationItem.cpp
+g++ -g -o m m.cpp TransformationItem.o ModificationItem.o

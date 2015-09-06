@@ -28,10 +28,11 @@ def doit(year, m_from, m_to):
     return temp3
 
 
-t = doit(2015, 10, 12)
+t = doit(2015, 9, 9)
 
 for e in t:
     print e
+
 
 
 

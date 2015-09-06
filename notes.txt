@@ -1,5 +1,16 @@
+// Virtual Box 
+
+<>  How to install Virtualbox guest additions on Ubuntu 14.04
+   manual install, it worked for me, very good page 
+
+    http://www.binarytides.com/vbox-guest-additions-ubuntu-14-04/
+
+<>   virtual box tutorial, not bad.
 
 
+
+//  GITHUB
+==============
 // commit 
 git add [<filename>]
 get add -u  -- only already tracked filesq

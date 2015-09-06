@@ -108,26 +108,23 @@ def draw_life(w, h, cell_size, get_next):
         my_clock.tick(30) # pygame ticks
         surface.fill(w_clr); # fill with white all space
 
+        # print "State", st_info
+        # recalculate the position
         str_info = "State: %s Center: (%d,%d)" % (state_size(d_raw), delta_x, delta_y) 
         text = myfont.render(str_info, 10, (255, 0, 0));  # text in the buttom of the window 
         surface.blit(text, ( 10, h * cell_size+5)) # show text in the buttom of the window
         surface.fill(b_clr, (0, h * cell_size, w * cell_size, 2)) # black line at the buttom for text 
         
-        # print "State", st_info
-        d = {}
-        # recalculate the position
-        # put in the center 
-        for (i,j), _ in d_raw.items():
-            d[(i+(w//2) + delta_x, j+(h//2) + delta_y)] = 1
-            
-        for (i,j),_ in d.items():
+        # put in the center (dalt_x, delta_y)
+        for (i_,j_),_ in d_raw.items():
+            i = i_+(w//2) + delta_x;
+            j  = j_+(h//2) + delta_y
             if i < w and j < h:
                 surface.fill(b_clr, (i * cell_size, j * cell_size, cell_size, cell_size))
         
         pygame.display.flip()
         
     pygame.quit()
-
 
 #example for generator state
 def get_next0():
