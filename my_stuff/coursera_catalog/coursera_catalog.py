@@ -28,7 +28,23 @@ def doit(year, m_from, m_to):
     return temp3
 
 
-t = doit(2015, 9, 9)
+
+def courses():
+    courses_response = urllib2.urlopen('https://api.coursera.org/api/catalog.v1/courses?fields=shortName,name,language&includes=universities,categories')
+    courses_data = json.load(courses_response)
+    courses_data = courses_data['elements']
+
+    print type(courses_data), len(courses_data)
+    cns = map(lambda x: x['name'], courses_data)
+    print len(cns)
+
+    found = filter(lambda x: 'HTML' in x, cns)
+    print found
+    
+#courses()
+
+
+t = doit(2015, 10, 10)
 
 for e in t:
     print e
