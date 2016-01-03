@@ -57,6 +57,10 @@ git status --short	   // show modifyedand new files
 
 
 
+// git config 
+// onece: to change ~/.gitconfig
+git config --global user.name "Plotnikov Lev"
+git config --global user.email "lev.plotnikov@gmail.com"
 
 
 CONTENTS:
