@@ -1,0 +1,14 @@
+compilation:
+--------------
+gcc -g -o my_client cliennt.c 
+gcc -g -o my_server server.c 
+
+
+running
+==========
+
+in one term:
+    my_server
+    my_client localhost 5001
+
+
