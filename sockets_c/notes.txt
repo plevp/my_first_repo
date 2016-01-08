@@ -12,3 +12,14 @@ in one term:
     my_client localhost 5001
 
 
+////////////
+echo client/server
+///////////
+
+gcc -g -o echo_server echo_server.c
+gcc -g -o echo_client echo_client.c
+
+///// run  ////
+echo_server 6001
+echo_client 6001
+
