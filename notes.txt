@@ -95,3 +95,29 @@ wget -non-interactive network retriever.
 gpicview - image viewer 
    display the same 
 
+
+
+/////////////////////////
+NOTES for git course on udacity
+/////////////////////
+
+Commands
+---------
+	git log
+
+	git diff <id> <id>   -- id's are from the log 
+
+	git clone <repository>
+
+	git config --global ....(e.g. colo.ui auto)
+
+    How go to one of the previous version? 
+	git checkout <id> 
+	    or better
+	git checkout -b <new_branch>
+	get checkout HEAD ???
+
+Comments:
+-----------
+Commit related to several files. It is a big advantage
+
