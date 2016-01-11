@@ -8,8 +8,8 @@
 
 #define MAXLINE 4096+2/*max text line length*/
 
-#define SERV_PORT 3000 /*port*/
-#define LISTENQ 8 /*maximum number of client connections */
+/** #define SERV_PORT 3000 port **/
+#define LISTENQ 5 /*maximum number of client connections */
 
 int main (int argc, char **argv)
 {
@@ -27,9 +27,15 @@ int main (int argc, char **argv)
   servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
   servaddr.sin_port = htons(atoi(argv[1]));
   
-  bind (listenfd, (struct sockaddr *) &servaddr, sizeof(servaddr));
+  if (bind (listenfd, (struct sockaddr *) &servaddr, sizeof(servaddr)) != 0) {
+    perror("Bind error");
+    exit(123);
+  }
   
-  listen (listenfd, LISTENQ);
+  if (listen (listenfd, LISTENQ) != 0) {
+    perror("Listen error");
+    exit(124);
+  }
   
   printf("%s\n","Server running...waiting for connections.");
   
@@ -37,6 +43,11 @@ int main (int argc, char **argv)
     
     clilen = sizeof(cliaddr);
     connfd = accept (listenfd, (struct sockaddr *) &cliaddr, &clilen);
+    if (connfd < 0){
+      perror("accept error");
+      continue;
+    }
+      
     printf("%s\n","Received request...");
     
     while ( (n = recv(connfd, buf, MAXLINE,0)) > 0)  {

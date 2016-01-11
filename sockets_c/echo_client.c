@@ -12,6 +12,7 @@
 #define MAXLINE 4096 /*max text line length*/
 #define SERV_PORT 3000 /*port*/
 
+
 int
 main(int argc, char **argv)
 {
@@ -49,7 +50,7 @@ main(int argc, char **argv)
   
   while (fgets(sendline, MAXLINE, stdin) != NULL) {
     
-    send(sockfd, sendline, strlen(sendline), 0);
+    send(sockfd, sendline, strlen(sendline)+1, 0);
     
     if ( ( n=recv(sockfd, recvline, MAXLINE,0)) == 0){
       //error: server terminated prematurely
