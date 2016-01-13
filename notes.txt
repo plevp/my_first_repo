@@ -41,7 +41,7 @@ git gui
 
 // avoid password for push
 git remote rm origin 
-git remote add origin https://plevp:gIThUB55@github.com/plevp/my_first_repo
+git remote add origin https://plevp:<git_password>@github.com/plevp/my_first_repo
 
 // move files (rename)
 git mv ...
@@ -101,6 +101,9 @@ gpicview - image viewer
 NOTES for git course on udacity
 /////////////////////
 
+URL - https://www.udacity.com/wiki/ud775
+pointers on many info .....
+
 Commands
 ---------
 	git log
@@ -116,6 +119,34 @@ Commands
 	    or better
 	git checkout -b <new_branch>
 	get checkout HEAD ???
+
+    Create a new repository locally
+        git init -- in some directory
+	git status -- show untracked files 
+	git add 
+	git diff (no arg) -- compare fales from work dir and stage area
+	git diff --staged   -- compare srage area and the last commit
+
+	git reset --hard -- avoid all changes in working area (similar to check out)
+
+	git checkout master 
+
+     Branches (labels)
+	git branch   [<name>] // create a new branch
+	git checkout <branch_name> // move to branch 
+ 
+	git checkout -b br_name == git branch ?? and git checkout ??
+
+    Marges branch to master
+	git log --graph <branches names>
+	git merge <branch>
+
+	git remote add origin <url>
+	git push -u origin master 
+	git pull origin master 
+	git diff HEAD
+
+	
 
 Comments:
 -----------

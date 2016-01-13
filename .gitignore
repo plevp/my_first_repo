@@ -8,4 +8,11 @@
 a.out
 *.\pyc
 my_stuff/dot/*.pdf
+specman.err
+*\.esv
+*\.ols
+*\.ols\.old
+sockets_c/frtl_sockets
+
+
 
