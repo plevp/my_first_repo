@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python2.7
 # -*- coding: utf-8 -*-
 
 import socket
@@ -11,7 +11,9 @@ def doit(port):
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     # Connect the socket to the port where the server is listening
-    server_address = ('localhost', port)
+    #server_address = ('localhost', port)
+    server_address = ('xn02', port)
+
     print 'connecting to %s port %s' % server_address
     sock.connect(server_address)
 

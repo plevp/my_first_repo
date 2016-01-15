@@ -13,7 +13,6 @@ C code #:
 #define SOCKET_BUF_MAXLINE 4096+2/*max text line length*/
 #define LISTENQ 8 
 
-
 typedef struct {
   struct sockaddr_in servaddr;
   int listenfd;
@@ -94,6 +93,8 @@ static void close_sock_server(frtl_sock_server * sh) {
 
 end #;
 
+// type sock_error: [ OPEN_ALREADY_IN_USE ];
+
 struct frtl_sock_server {
     socket_h: external_pointer;
 
@@ -132,13 +133,16 @@ extend global {
 
 	var sh := new frtl_sock_server;
 	status = sh.open(port_id);
-      
-	outf("%s\n","Server running...waiting for connections.");
+	if status != 0 {
+	    outf("Open socket server failed with code %d, exit....\n", status );
+	    return;
+	};	
+	outf("%s \n","Server running...waiting for connections.");
       
 	while (TRUE) {
 	    status = sh.accept();
 	    if (status != 0) { 
-	       outf("Accept failed, exit....");
+	       outf("Accept failed with code %d, exit....\n", status );
 	       break;
 	    };
 	    outf("%s\n","Received request...");

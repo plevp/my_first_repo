@@ -144,8 +144,13 @@ Commands
 	git remote add origin <url>
 	git push -u origin master 
 	git pull origin master 
+           actually is equal
+		    git fetch origin
+		    git merge master origin/master
 	git diff HEAD
 
+	git fork -- is a brother of git clone 
+		
 	
 
 Comments:
