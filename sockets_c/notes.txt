@@ -23,3 +23,7 @@ gcc -g -o echo_client echo_client.c
 echo_server 6001
 echo_client 6001
 
+
+Specman
+===========
+sn_compile.sh -v -cflags " -g " -t tmp ../svfr_sockets.e
