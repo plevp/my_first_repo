@@ -5,6 +5,11 @@ MAXLINE = 4096
 HOSTNAME = 'xn01'
 
 class Socket_Read:
+    
+    Normal = 0
+    EOF   = 1
+    Fatal = 2
+    
     sock = None
     rest_line = ""
     lines = [];
@@ -48,8 +53,35 @@ class Socket_Read:
             self.line_ind = -1
 
         return result
-            
+
+    def read_non_empty_line(self):
+        line = self.read_line()
+        while (line == ''):
+            line = self.read_line();
+        return line;
 
     def read_event(self):
-        pass
-    
+        vals = []
+        line = self.read_non_empty_line();
+
+        if line == None:
+            return (self.EOF, " ", [])
+
+        #print "line:", line
+        if not line.startswith("#ros_event ") :
+            return (self.Fatal, "*** Fatal: cannot find keyword #ros_event \n\tline: " + line)
+
+        ls = line.split();
+        if len(ls) != 4:
+            return (self.Fatal, "*** Fatal: cannot parse #ros_event line \n\tline: " + line)
+
+        topic = ls[2]
+        line = self.read_non_empty_line();
+        while line.strip() != "}":
+            ls = line.split(": ",1)
+            if len(ls) != 2:
+                return (self.Fatal, "*** Fatal: cannot parse data line \n\tline:" + line)
+            vals.append(ls[1])
+            line = self.read_non_empty_line();
+        
+        return (self.Normal, topic, vals)
