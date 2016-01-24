@@ -9,17 +9,19 @@ from socket_read import *
 #from bert2_simulator.msg import *
 #from std_msgs.msg import Int8, String
 
+HOSTNAME = 'xn01'
+
 def location_p(x, y, z):
-    print "Location:", x, y, z
+    print "ROS_EVENT Location:", x, y, z
 
 def gaze_p(offset, distance, angle):
-    print "Gaze:", offset, distance, angle
+    print "ROS_EVENT Gaze:", offset, distance, angle
 
 def human_signals_p(a,b):
-    print "human_signals:", a, b
+    print "ROS_EVENT human_signals:", a, b
 
 def pressure_e2_p(data):
-    print "pressure_e2:", data
+    print "ROS_EVENT pressure_e2:", data
 
 def ros_fatal(fatal_str):
     print "ROS_FATAL:", fatal_str
@@ -32,7 +34,7 @@ def ros_event_p(topic, vals):
     elif topic == 'human_signals':
         #human_signals_p.Publish(int(vals[0]), int(vals[1]))
         human_signals_p(int(vals[0]), int(vals[1]))
-    elif topic == 'pressure_e2':
+    elif topic == 'pressure_2':
         #pressure_e2_p.Publish(int(vals[0]))
         pressure_e2_p(int(vals[0]))
     elif topic == 'location':
@@ -59,9 +61,11 @@ def doit(port):
         (status, topic, vals) = sock.read_event()
 
         print "Status: ", status
+        print "Topic:", topic
         print "Vals:", vals
 
         if status == Socket_Read.EOF:
+            print "ROS_EOF"
             break
 
         if status == Socket_Read.Fatal:

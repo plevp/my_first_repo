@@ -9,10 +9,11 @@ import rospy
 from bert2_simulator.msg import *
 from std_msgs.msg import Int8, String
 
+HOSTNAME = 'xn01'
+
 def ros_fatal(fatal_str):
     print "ROS_FATAL:", fatal_str
    
-
 def ros_event_p(topic, vals):
     if topic == 'gaze':
         gaze_p.Publish(float(vals[0]), float(vals[1]), float(vals[2]))

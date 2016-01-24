@@ -1,0 +1,26 @@
+#ros_event 187.365 human_signals {
+activateRobot: 0
+humanIsReady: 1
+}
+
+#ros_event 200 gaze {
+offset: 0.1
+distance:  2.3
+angle:    45.6
+}
+
+#ros_event 1235.284 pressure_2 {
+data: 0
+}
+#ros_event 1301.234 location  {
+x:  1.1
+y:  2.2
+z:  3.3
+}
+#ros_event 1435.284 pressure_2 {
+data: 1
+}
+
+#ros_eof
+
+
