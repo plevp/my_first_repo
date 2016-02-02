@@ -23,12 +23,17 @@ def human_signals_p(a,b):
 def pressure_e2_p(data):
     print "ROS_EVENT pressure_e2:", data
 
+def ros_command_p(data):
+    print "ROS_EVENT ros_command:", data
+
 def ros_fatal(fatal_str):
     print "ROS_FATAL:", fatal_str
    
 
 def ros_event_p(topic, vals):
-    if topic == 'gaze':
+    if topic == 'ros_command':
+        ros_command_p(vals[0])        
+    elif topic == 'gaze':
         #gaze_p.Publish(float(vals[0]), float(vals[1]), float(vals[2]))
         gaze_p(float(vals[0]), float(vals[1]), float(vals[2]))
     elif topic == 'human_signals':

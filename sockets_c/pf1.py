@@ -22,9 +22,16 @@ def doit(port, file_name):
         return;
     
     buf = fp.read();
+    # time.sleep(20);
     print  'sending data: "%s"' % buf
-    sock.sendall(buf)
-
+    try :    #Set the whole string
+        sock.sendall(buf)
+    except socket.error:
+        #Send failed
+        print 'Send failed'
+        sys.exit()
+    
+    
     sock.close()
 
 if __name__  == '__main__':
