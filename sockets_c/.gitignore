@@ -1,0 +1,6 @@
+my_client
+my_server
+echo_client
+echo_server
+svfr_sockets
+bin/tmp/*

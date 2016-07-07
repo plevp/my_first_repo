@@ -4,7 +4,14 @@
 \#*
 .\#*
 .*\.swp
+*\.elog
 a.out
 *.\pyc
 my_stuff/dot/*.pdf
+specman.err
+*\.esv
+*\.ols
+*\.ols\.old
+
+
 

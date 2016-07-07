@@ -1,0 +1,29 @@
+compilation:
+--------------
+gcc -g -o my_client cliennt.c 
+gcc -g -o my_server server.c 
+
+
+running
+==========
+
+in one term:
+    my_server
+    my_client localhost 5001
+
+
+////////////
+echo client/server
+///////////
+
+gcc -g -o echo_server echo_server.c
+gcc -g -o echo_client echo_client.c
+
+///// run  ////
+echo_server 6001
+echo_client 6001
+
+
+Specman
+===========
+sn_compile.sh -v -cflags " -g " -t tmp ../svfr_sockets.e
