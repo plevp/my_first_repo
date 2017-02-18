@@ -1,0 +1,90 @@
+#!/usr/bin/python
+
+import sys
+
+n = int(raw_input().strip())
+
+for _ in range(n):
+    l = []
+    res = ''
+    s1 = raw_input().strip()
+    s2 = raw_input().strip()
+
+    if len(s1) == 0:
+        res = s1;
+    elif len(s2) == 0:
+        res = s2;
+    else:
+        l1 = list(s1)[::-1]
+        l2 = list(s2)[::-1]
+        c1 = l1.pop()       
+        c2 = l2.pop()
+        
+        k = 0
+        sp  = ''
+        while (True):
+            print c1, c2, k
+            print "l1  ", l1
+            print "l2  ", l2
+            print "l  ", l
+            if c1 < c2:
+                l.append(c1)
+                if k > 0:
+                    if sp < c1:
+                        for j in xrange(k):
+                            l.append(sp);
+                        k = 0
+                        continue
+                    else:
+                        l2.append(c2)
+                        for j in xrange(k):
+                            l2.append(sp);
+                        c2 = l2.pop();
+                if len(l1) == 0:
+                    l.append(c2)
+                    l.extend(l2[::-1])
+                    break;
+                else:
+                    c1 = l1.pop();
+                k = 0
+            elif c2 < c1:
+                l.append(c2)
+                if k > 0:
+                    if sp < c2:
+                        for j in xrange(k):
+                            l.append(sp);
+                        k = 0
+                        continue
+                    else:
+                        l1.append(c1)
+                        for j in xrange(k):
+                            l1.append(sp);
+                    c1 = l1.pop();
+                if len(l2) == 0:
+                    l.append(c1)
+                    l.extend(l1[::-1])
+                    break;
+                else:
+                    c2 = l2.pop();
+                k = 0
+            else:  # c1 == c2
+                i1 = len(l1) - 1;
+                i2 = len(l2) - 1;
+                k = 0
+                while(i1 >=0 and i2>=0 and l1[i1] == l2[i2]):
+                    i1 += 1;
+                    i2 += 1;
+                    k += 1;
+                if i1 > 0 and i2 > 0:
+                    
+                    
+                    
+                                
+
+                l.append(c1);
+                c1 =  l1.pop()
+                c2 =  l2.pop()
+
+        res = ''.join(l)
+        
+        print res    
